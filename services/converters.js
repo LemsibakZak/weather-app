@@ -32,10 +32,62 @@ export const degToCompass = (num) => {
   return arr[val % 16];
 };
 
-export const unixToLocalTime = (unixSeconds, timezone) => {
-  let time = new Date((unixSeconds + timezone) * 1000)
-    .toISOString()
-    .match(/(\d{2}:\d{2})/)[0];
+export const codeWeather = (code) => {
+  switch (code) {
+    case 0:
+      return { description: "Clear sky", icon: "01" };
 
-  return time.startsWith("0") ? time.substring(1) : time;
+    case 1:
+    case 2:
+    case 3:
+      return { description: "Mainly clear, partly cloudy, and overcast", icon : "02" };
+
+    case 45:
+    case 48:
+      return { description: "Fog and depositing rime fog" , icon : "50"};
+
+    case 51:
+    case 53:
+    case 55:
+      return { description: "Drizzle: Light, moderate, and dense intensity", icon: "09" };
+
+    case 56:
+    case 57:
+      return { description: "Freezing Drizzle: Light and dense intensity", icon: "13" };
+
+    case 61:
+    case 63:
+    case 65:
+      return { description: "Rain: Slight, moderate and heavy intensity", icon: "10" };
+
+    case 66:
+    case 67:
+      return { description: "Freezing Rain: Light and heavy intensity", icon: "13" };
+
+    case 71:
+    case 73:
+    case 75:
+      return { description: "Snow fall: Slight, moderate, and heavy intensity", icon: "13" };
+
+    case 77:
+      return { description: "Snow grains", icon: "13" };
+
+    case 80:
+    case 81:
+    case 82:
+      return { description: "Rain showers: Slight, moderate, and violent", icon: "09" };
+
+    case 85:
+    case 86:
+      return { description: "Snow showers slight and heavy", icon: "13" };
+
+    case 95:
+      return { description: "Thunderstorm: Slight or moderate", icon: "11" };
+
+    case 96:
+    case 99:
+      return { description: "Thunderstorm with slight and heavy hail", icon: "11" };
+    default:
+      return { description: "Unknown weather condition" };
+  }
 };
