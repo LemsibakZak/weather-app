@@ -12,9 +12,11 @@ import { ErrorScreen } from "../components/ErrorScreen";
 
 import styles from "../styles/Home.module.css";
 import { codeWeather } from "../services/converters";
+import { defaultLocation } from "../config";
+
 
 export const App = () => {
-  const [cityInput, setCityInput] = useState("Berlin");
+  // const [cityInput, setCityInput] = useState("Berlin");
   const [triggerFetch, setTriggerFetch] = useState(true);
   const [weatherData, setWeatherData] = useState();
   const [unitSystem, setUnitSystem] = useState("metric");
@@ -24,11 +26,11 @@ export const App = () => {
       const res = await fetch("api/data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cityInput }),
+        body: JSON.stringify({ defaultLocation }),
       });
       const data = await res.json();
       setWeatherData({ ...data });
-      setCityInput("");
+      // setCityInput("");
     };
     getData();
   }, [triggerFetch]);
@@ -41,10 +43,10 @@ export const App = () => {
   return weatherData && !weatherData.message ? (
     <div className={styles.wrapper}>
       <MainCard
-        city={weatherData.city.name}
-        country={weatherData.city.country}
-        description={codeWeather(weatherData.weather.current_weather.weathercode).description}
-        iconName={codeWeather(weatherData.weather.current_weather.weathercode).icon + (weatherData.weather.current_weather.is_day ? "d" : "n")}
+        city={defaultLocation.city}
+        country={defaultLocation.country}
+        description={codeWeather(weatherData.current_weather.weathercode).description}
+        iconName={codeWeather(weatherData.current_weather.weathercode).icon + (weatherData.current_weather.is_day ? "d" : "n")}
         unitSystem={unitSystem}
         weatherData={weatherData}
       />

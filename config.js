@@ -1,0 +1,1 @@
+export const defaultLocation = { latitude: 48.85341, longitude: 2.3488, city: "Paris", country: "France" };

@@ -14,12 +14,12 @@ export const getVisibility = (unitSystem, visibilityInMeters) =>
 
 export const getTime = (unitSystem, currentTime, timezone) =>
   unitSystem == "metric"
-    ? new Date(currentTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-    : timeTo12HourFormat(new Date(currentTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+    ? new Date(currentTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
+    : timeTo12HourFormat(new Date(currentTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: timezone }));
 
 export const getAMPM = (unitSystem, currentTime, timezone) =>
   unitSystem === "imperial"
-    ? new Date(currentTime).toLocaleTimeString('en-US', { hour12: true }).split(' ')[1]
+    ? new Date(currentTime).toLocaleTimeString('fr-FR', { hour12: true, timeZone: timezone }).split(' ')[1]
     : "";
 
 export const getWeekDay = (weatherData) => {
@@ -32,5 +32,5 @@ export const getWeekDay = (weatherData) => {
     "Friday",
     "Saturday",
   ];
-  return weekday[new Date(weatherData.weather.current_weather.time).getDay()];
+  return weekday[new Date(weatherData.current_weather.time).getDay()];
 };

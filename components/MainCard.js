@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ctoF } from "../services/converters";
+import { ctoF, getIndex } from "../services/converters";
 import styles from "./MainCard.module.css";
 
 export const MainCard = ({
@@ -24,17 +24,17 @@ export const MainCard = ({
       />
       <h1 className={styles.temperature}>
         {unitSystem == "metric"
-          ? Math.round(weatherData.weather.current_weather.temperature)
-          : Math.round(ctoF(weatherData.weather.current_weather.temperature))}
+          ? Math.round(weatherData.hourly.temperature_2m[getIndex(weatherData.hourly.time, weatherData.current_weather.time, 3)])
+          : Math.round(ctoF(weatherData.hourly.temperature_2m[getIndex(weatherData.hourly.time, weatherData.current_weather.time, 3)]))}
         °{unitSystem == "metric" ? "C" : "F"}
       </h1>
-      {/* <p>
+      <p>
         Feels like{" "}
         {unitSystem == "metric"
-          ? Math.round(weatherData.main.feels_like)
-          : Math.round(ctoF(weatherData.main.feels_like))}
+          ? Math.round(weatherData.hourly.apparent_temperature[getIndex(weatherData.hourly.time, weatherData.current_weather.time, 3)])
+          : Math.round(ctoF(weatherData.hourly.apparent_temperature[getIndex(weatherData.hourly.time, weatherData.current_weather.time, 3)]))}
         °{unitSystem == "metric" ? "C" : "F"}
-      </p> */}
+      </p>
     </div>
   );
 };

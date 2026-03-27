@@ -91,3 +91,12 @@ export const codeWeather = (code) => {
       return { description: "Unknown weather condition" };
   }
 };
+
+export const getIndex = (array, value, cut) => {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].slice(0, cut) === value.slice(0, cut)) {
+      return i;
+    }
+  }
+  return -1;
+};
